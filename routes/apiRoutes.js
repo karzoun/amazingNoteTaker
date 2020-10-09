@@ -9,11 +9,16 @@ router.get("/notes", (req, res) => {
 });
 
 router.post("/notes", (req, res) => {
+    console.log(req.body)
+    let noteToSave = req.body
+        // you need to add a uniq id to each note (to add new keys to objects = noteToSave.id=1)
+
+    noteToSave = JSON.stringify(noteToSave)
     db
-        .addNote(req.body)
+        .addNote(noteToSave)
         .then((note) => {
             res.json(note);
-            console.log("res.body: ", res.body);
+
         })
         .catch((err) => res.status(500).json(err));
 });

@@ -12,7 +12,7 @@ class db {
     }
 
     write(note) {
-        return writeFilePromise("db/db.json", JSON.stringify(note));
+        return writeFilePromise("db/db.json", note);
     }
 
     getNotes() {
@@ -33,10 +33,9 @@ class db {
     addNote(note) {
         return this.getNotes()
             .then((notes) => {
-                notes.push(note)
-            })
-            .then((newNotes) => {
-                this.write(newNotes)
+                notes.push(JSON.parse(note))
+                console.log(notes);
+                this.write(JSON.stringify(notes))
             })
             .then(() => {
                 return note;
